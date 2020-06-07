@@ -1,3 +1,4 @@
+#include <vector>
 #include "Checker.h"
 #include "Figure.h"
 #include <cmath>

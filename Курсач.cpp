@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <vector>
 #include <string>
 #include "Figure.h"
 #include "Checker.h"
@@ -30,11 +31,9 @@ int main()
     if (answer == "yes") {
         cout << "Let's go!" << endl;
 
-        Board board;
         Game game;
         int x, y;
 
-        game.board.CreateBoard();
         Display(game.board);
         cout << endl;
 
