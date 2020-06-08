@@ -5,7 +5,7 @@ private:
 	bool inGame; //
 public:
 	bool isWhite; //public
-	bool isQueen;
+	bool isQueen = false;
 	int x;
 	int y;
 	Figure(int x, int y, bool isWhite);

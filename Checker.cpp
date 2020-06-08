@@ -2,6 +2,7 @@
 #include "Checker.h"
 #include "Figure.h"
 #include <cmath>
+#include <iostream>
 
 int turnDisance = 1;
 
@@ -37,5 +38,5 @@ void Checker::Move(int x, int y, int desk[8][8]) { //заменить на board
 }
 
 void Checker::Hit(int x, int y, int desk[8][8]) {
-
+	std::cout << "meow";
 }
