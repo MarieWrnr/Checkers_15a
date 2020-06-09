@@ -7,29 +7,23 @@
 int turnDisance = 1;
 
 Checker::Checker() {}
-Checker::Checker(int x, int y, bool isWhite) {
+Checker::Checker(int x, int y, char symb) {
 	this->x = x;
 	this->y = y;
-	this->isWhite = isWhite;
-	if (isWhite) {
-		this->symb = 'W';
-	}
-	else {
-		this->symb = 'B';
-	}
+	this->symb = symb;
 	setInGame(true);
 
 }
 
-void Checker::Move(int x, int y, int desk[8][8]) { //заменить на board
+void Checker::Move(int x, int y, Board board) { //заменить на board
 	if (abs(x - this->x) == turnDisance && abs(y - this->y) == turnDisance) {
-		if (desk[x][y] == '-') {
+		if (board.board[x][y].symb == ' ') {
 			this->x = x;
 			this->y = y;
 		}
-		else if (desk[x][y] != '-' && symb != desk[x][y]) { //board
+		else if (board.board[x][y].symb != ' ' && symb != board.board[x][y].symb) { //board
 			turnDisance = 2;
-			Hit(x, y, desk);
+			Hit(x, y, board);
 
 		}
 
@@ -37,6 +31,6 @@ void Checker::Move(int x, int y, int desk[8][8]) { //заменить на board
 
 }
 
-void Checker::Hit(int x, int y, int desk[8][8]) {
+void Checker::Hit(int x, int y, Board board) {
 	std::cout << "meow";
 }

@@ -1,8 +1,20 @@
-#include "Queen.h"
+п»ї#include "Queen.h"
 #include "Figure.h"
 #include <iostream>
 
-void Queen::Move(int x, int y, int desk[8][8]) { //заменить на board
+Queen::Queen() {
+}
+Queen::Queen(int x, int y, char symb) {
+	this->x = x;
+	this->y = y;
+	if (symb == 'w') {
+		this->symb = 'W';
+	}
+	else if (symb == 'b') {
+		this->symb = 'B';
+	}
+}
+void Queen::Move(int x, int y, Board board) { //Р·Р°РјРµРЅРёС‚СЊ РЅР° board
 	/*if (abs(x - this->x) == turnDisance && abs(y - this->y) == turnDisance) {
 		if (desk[x][y] == '-') {
 			this->x = x;
@@ -18,6 +30,6 @@ void Queen::Move(int x, int y, int desk[8][8]) { //заменить на board
 	std::cout << "meow";
 }
 
-void Queen::Hit(int x, int y, int desk[8][8]) {
+void Queen::Hit(int x, int y, Board board) {
 	std::cout << "meow";
 }

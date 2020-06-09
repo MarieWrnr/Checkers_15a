@@ -1,10 +1,10 @@
 #include "Figure.h"
-
+#include "Board.h"
 Figure::Figure() {}
-Figure::Figure(int x, int y, bool isWhite) {
+Figure::Figure(int x, int y, char symb) {
 	this->x = x;
 	this->y = y;
-	this->isWhite = isWhite;
+	this->symb = symb;
 	if (!isQueen) {
 		this->inGame = true;
 	}

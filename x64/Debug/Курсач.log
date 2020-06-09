@@ -1,3 +1,9 @@
-﻿  Курсач.cpp
-C:\Users\User\Desktop\Checkers_15a\Курсач.cpp(43): warning C4715: CheckCoord: значение возвращается не при всех путях выполнения
-  Курсач.vcxproj -> C:\Users\User\Desktop\Checkers_15a\x64\Debug\Курсач.exe
+﻿  Board.cpp
+C:\Users\User\Desktop\Checkers_15a\Figure.h(16,40): error C2061: синтаксическая ошибка: идентификатор "Board"
+C:\Users\User\Desktop\Checkers_15a\Figure.h(17,39): error C2061: синтаксическая ошибка: идентификатор "Board"
+C:\Users\User\Desktop\Checkers_15a\Checker.h(11,32): error C2061: синтаксическая ошибка: идентификатор "Board"
+C:\Users\User\Desktop\Checkers_15a\Checker.h(12,31): error C2061: синтаксическая ошибка: идентификатор "Board"
+  Checker.cpp
+C:\Users\User\Desktop\Checkers_15a\Board.h(8,26): error C2065: Figure: необъявленный идентификатор
+C:\Users\User\Desktop\Checkers_15a\Board.h(8,19): error C2923: std::vector: "Figure" не является допустимым аргументом типа шаблон для параметра "_Ty"
+C:\Users\User\Desktop\Checkers_15a\Board.h(8,32): fatal error C1903: не удается восстановить после предыдущих ошибок; остановка компиляции
