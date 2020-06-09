@@ -6,12 +6,11 @@
 #include "Board.h"
 #include "Game.h"
 #include "Queen.h"
-#include <map>
 
 
 
 using namespace std;
-bool CheckBeat(Board& board, int x, int y) { 
+bool CheckBeat(Board& board, int x, int y) { //метод класса Board!
 
     //этот метод необходим для того, чтобы проверить, может ли текущая шашка бить что-либо
     //bool; если true - значит ей можно ходить без проверок; если false - программа запускает проверку на возможность битья других шашек
@@ -27,7 +26,7 @@ bool CheckBeat(Board& board, int x, int y) {
                 // y != 1, y != 2 т.к это исключ. случай (битье с правой стороны)
 
                 if (board.board[x][y].symb == 'b') { //правая диагональ
-                    if (board.board[x + 1][y + 1].symb == ' ') { 
+                    if (board.IsEmpty(x+2,y+2)) { 
                         curbeaten = true;
                     }
                 }

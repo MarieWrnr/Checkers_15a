@@ -1,9 +1,27 @@
 ﻿  Board.cpp
-C:\Users\User\Desktop\Checkers_15a\Figure.h(16,40): error C2061: синтаксическая ошибка: идентификатор "Board"
-C:\Users\User\Desktop\Checkers_15a\Figure.h(17,39): error C2061: синтаксическая ошибка: идентификатор "Board"
-C:\Users\User\Desktop\Checkers_15a\Checker.h(11,32): error C2061: синтаксическая ошибка: идентификатор "Board"
-C:\Users\User\Desktop\Checkers_15a\Checker.h(12,31): error C2061: синтаксическая ошибка: идентификатор "Board"
   Checker.cpp
-C:\Users\User\Desktop\Checkers_15a\Board.h(8,26): error C2065: Figure: необъявленный идентификатор
-C:\Users\User\Desktop\Checkers_15a\Board.h(8,19): error C2923: std::vector: "Figure" не является допустимым аргументом типа шаблон для параметра "_Ty"
-C:\Users\User\Desktop\Checkers_15a\Board.h(8,32): fatal error C1903: не удается восстановить после предыдущих ошибок; остановка компиляции
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(25,8): error C2039: GetSize: не является членом "Board"
+C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(30,12): error C2039: HasChecker: не является членом "Board"
+C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(35,17): error C2039: HasChecker: не является членом "Board"
+C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(60,47): error C2511: void Checker::Move(int,int,Board): перегруженная функция-член не найдена в "Checker"
+C:\Users\User\Desktop\Checkers_15a\Checker.h(5): message : см. объявление "Checker"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(61,5): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(63,4): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(64,4): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(68,19): error C2664: "void Checker::Hit(int,int,Board *)": невозможно преобразовать аргумент 3 из "Board" в "Board *"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(68,14): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+C:\Users\User\Desktop\Checkers_15a\Checker.h(14,7): message : см. объявление "Checker::Hit"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(76,46): error C2511: void Checker::Hit(int,int,Board): перегруженная функция-член не найдена в "Checker"
+C:\Users\User\Desktop\Checkers_15a\Checker.h(5): message : см. объявление "Checker"
+  Figure.cpp
+  Game.cpp
+  Queen.cpp
+C:\Users\User\Desktop\Checkers_15a\Queen.h(10,7): error C3668: Queen::Move: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(11,7): error C3668: Queen::Hit: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
+  Курсач.cpp
+C:\Users\User\Desktop\Checkers_15a\Queen.h(10,7): error C3668: Queen::Move: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(11,7): error C3668: Queen::Hit: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
+  Создание кода...
