@@ -1,27 +1,3 @@
-﻿  Board.cpp
-  Checker.cpp
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(25,8): error C2039: GetSize: не является членом "Board"
-C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(30,12): error C2039: HasChecker: не является членом "Board"
-C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(35,17): error C2039: HasChecker: не является членом "Board"
-C:\Users\User\Desktop\Checkers_15a\Board.h(6): message : см. объявление "Board"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(60,47): error C2511: void Checker::Move(int,int,Board): перегруженная функция-член не найдена в "Checker"
-C:\Users\User\Desktop\Checkers_15a\Checker.h(5): message : см. объявление "Checker"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(61,5): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(63,4): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(64,4): error C2671: Checker::Move: статические функции-члены не имеют указателей "this"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(68,19): error C2664: "void Checker::Hit(int,int,Board *)": невозможно преобразовать аргумент 3 из "Board" в "Board *"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(68,14): message : Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
-C:\Users\User\Desktop\Checkers_15a\Checker.h(14,7): message : см. объявление "Checker::Hit"
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(76,46): error C2511: void Checker::Hit(int,int,Board): перегруженная функция-член не найдена в "Checker"
-C:\Users\User\Desktop\Checkers_15a\Checker.h(5): message : см. объявление "Checker"
-  Figure.cpp
-  Game.cpp
-  Queen.cpp
-C:\Users\User\Desktop\Checkers_15a\Queen.h(10,7): error C3668: Queen::Move: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
-C:\Users\User\Desktop\Checkers_15a\Queen.h(11,7): error C3668: Queen::Hit: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
-  Курсач.cpp
-C:\Users\User\Desktop\Checkers_15a\Queen.h(10,7): error C3668: Queen::Move: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
-C:\Users\User\Desktop\Checkers_15a\Queen.h(11,7): error C3668: Queen::Hit: метод со спецификатором переопределения "override" не переопределяет какие-либо методы базового класса
-  Создание кода...
+﻿  Checker.cpp
+C:\Users\User\Desktop\Checkers_15a\Board.h(16,1): warning C4267: return: преобразование из "size_t" в "const int"; возможна потеря данных
+  Курсач.vcxproj -> C:\Users\User\Desktop\Checkers_15a\x64\Debug\Курсач.exe

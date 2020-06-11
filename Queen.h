@@ -6,7 +6,6 @@ class Queen :
 public:
 	Queen();
 	Queen(int x, int y, char symb);
-	int turnDistance;
-	void Move(int x, int y, Board board) override;
-	void Hit(int x, int y, Board board) override;
+	void Move(int x, int y, Board& board) override;
+	void Hit(int x, int y, Board& board) override;
 };

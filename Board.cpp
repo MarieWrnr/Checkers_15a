@@ -6,7 +6,9 @@
 Board::Board(int size):size(size) { //создаем двумерный массив указателей
     int pos_x;
     int pos_y;
+
     board.resize(size);
+
     for (int i = 0; i < size; i++) { //заполняем доску объектами класса Checkers с параметрами
         for (int j = 0; j < size; j++) {
             pos_x = j + 1;
@@ -23,6 +25,10 @@ Board::Board(int size):size(size) { //создаем двумерный масс
                     board[i].push_back(nullptr);
                 }
             }
+            else {
+                board[i].push_back(nullptr);
+            }
         }
+
     }
 }
