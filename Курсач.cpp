@@ -48,11 +48,33 @@ int main()
                 cout << "Choose another coords, these are empty" << endl;
                 goto coords;
             }
-            else if ((game.GetGameBoard().HasCheckerB(x, y) && game.CheckPlayer() == "Player 1") || !game.GetGameBoard().HasCheckerB(x, y) == 'w' && game.CheckPlayer() == "Player 2") {
+            else if ((game.GetGameBoard().HasCheckerB(x, y) && game.CheckPlayer() == "Player 1") || !game.GetGameBoard().HasCheckerB(x, y) && game.CheckPlayer() == "Player 2") {
                 cout << "Choose another coords, this checker is not yours" << endl;
+                goto coords;
             }
-           cout << game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard()) << endl;
-           game.ChangePlayer(game.CheckPlayer());
+            if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) {
+               bool curr = false;
+               for (int i = 1; i < 9; i++) {
+                   for (int j = 1; j < 9; j++) {
+                       if (!game.GetGameBoard().IsEmpty(i, j)) {
+                           curr = game.GetGameBoard().GetBoardVector()[i - 1][j - 1]->CanBeat(game.GetGameBoard(), i, j);
+                           if (curr) {
+                               cout << "Please, find a checker to beat your opponent" << endl;
+                               break;
+                           }
+                       }
+                   }
+               }
+               if (curr) {
+                   goto coords;
+               }
+
+            }
+            else {
+                cout << "congrats!" << endl;
+                //game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Hit(x, y, game.GetGameBoard());
+            }
+           game.SetMove();
         } //дохрена всего короче менять надо, я спать
     }
 }

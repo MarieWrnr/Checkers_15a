@@ -9,13 +9,8 @@ private:
 public:
 	void Display();
 	std::string CheckPlayer(); //вывод действующего игрока
-	void ChangePlayer(std::string player) {
-		if (player == "Player 1") {
-			player = "Player 2";
-		}
-		else {
-			player = "Player 1";
-		}
+	void SetMove() {
+		move = !move;
 	}
 	Board GetGameBoard() {
 		return board;

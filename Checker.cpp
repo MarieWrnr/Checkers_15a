@@ -16,40 +16,40 @@ Checker::Checker(int x, int y, char symb) {
 
 }
 
-bool Checker::CanBeat(const Board& board)const
+bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 {
 	bool curbeaten = false;
     //char other_color = (symb == 'b') ? 'w' : 'b';
     //int delta_x = (symb == 'b') ? 1 : -1;
-    if (!board.HasCheckerB(x, y)) {
-        if (y != board.GetSize() && y != 1 && y != 2 && y != board.GetSize() - 1) {
+    if (!board.HasCheckerB(co_x, co_y)) {
+        if (co_y != board.GetSize() && co_y != 1 && co_y != 2 && co_y != board.GetSize() - 1) {
 
             // y != 8, y != 7 т.к это исключ. случай (есть возможность битья только с левой стороны)
             // y != 1, y != 2 т.к это исключ. случай (битье с правой стороны)
 
-            if (!board.IsEmpty(x+1, y+1) && board.HasCheckerB(x + 1, y + 1)) { //правая диагональ
-                if (board.IsEmpty(x + 2, y + 2)) {
+            if (!board.IsEmpty(co_x+1, co_y+1) && board.HasCheckerB(x + 1, y + 1)) { //правая диагональ
+                if (board.IsEmpty(co_x + 2, co_y + 2)) {
                     curbeaten = true;
                 }
             }
-            else if (!board.IsEmpty(x+1, y+1) && board.HasCheckerB(x + 1, y - 1)) { //левая диагональ
-                if (board.IsEmpty(x + 2, y - 2)) {
+            else if (!board.IsEmpty(co_x+1, co_y+1) && board.HasCheckerB(co_x + 1, co_y - 1)) { //левая диагональ
+                if (board.IsEmpty(co_x + 2, co_y - 2)) {
                     curbeaten = true;
                 }
             }
 
         }
-        else {
-            if (y == 1 || y == 2) {
-                if (!board.IsEmpty(x + 1, y + 1) && board.HasCheckerB(x + 1, y + 1)) {
-                    if (board.IsEmpty(x + 2, y + 2)) {
+        else { //для черных
+            if (co_y == 1 || co_y == 2) {
+                if (!board.IsEmpty(co_x + 1, co_y + 1) && board.HasCheckerB(co_x + 1, co_y + 1)) {
+                    if (board.IsEmpty(co_x + 2, co_y + 2)) {
                         curbeaten = true;
                     }
                 }
             }
-            else if (y == board.GetSize() - 1 || y == board.GetSize()) {
-                if (!board.IsEmpty(x + 1, y - 1) && board.HasCheckerB(x + 1, y - 1)) {
-                    if (board.IsEmpty(x + 2, y - 2)) {
+            else if (co_y == board.GetSize() - 1 || co_y == board.GetSize()) {
+                if (!board.IsEmpty(co_x + 1, co_y - 1) && board.HasCheckerB(co_x + 1, co_y - 1)) {
+                    if (board.IsEmpty(co_x + 2, co_y - 2)) {
                         curbeaten = true;
                     }
                 }
@@ -57,31 +57,31 @@ bool Checker::CanBeat(const Board& board)const
         }
     }
     else {
-        if (y != board.GetSize() && y != 1 && y != 2 && y != board.GetSize() - 1) {
+        if (co_y != board.GetSize() && co_y != 1 && co_y != 2 && co_y != board.GetSize() - 1) {
 
-            if (!board.HasCheckerB(x - 1, y - 1)) { //правая диагональ
-                if (board.IsEmpty(x - 2, y - 2)) {
+            if (!board.IsEmpty(co_x - 1, co_y - 1) && !board.HasCheckerB(co_x - 1, co_y - 1)) { //правая диагональ
+                if (board.IsEmpty(co_x - 2, co_y - 2)) {
                     curbeaten = true;
                 }
             }
-            else if (!board.HasCheckerB(x - 1, y + 1)) { //левая диагональ
-                if (board.IsEmpty(x - 2, y + 2)) {
+            else if (!board.IsEmpty(co_x - 1, co_y + 1) && !board.HasCheckerB(co_x - 1, co_y + 1)) { //левая диагональ
+                if (board.IsEmpty(co_x - 2, co_y + 2)) {
                     curbeaten = true;
                 }
             }
 
         }
         else {
-            if (y == 1 || y == 2) {
-                if (board.HasCheckerB(x - 1, y + 1)) {
-                    if (board.IsEmpty(x - 2, y + 2)) {
+            if (co_y == 1 || co_y == 2) {
+                if (!board.IsEmpty(co_x - 1, co_y + 1) && board.HasCheckerB(co_x - 1, co_y + 1)) {
+                    if (board.IsEmpty(co_x - 2, co_y + 2)) {
                         curbeaten = true;
                     }
                 }
             }
-            else if (y == board.GetSize() - 1 || y == board.GetSize()) {
-                if (board.HasCheckerB(x - 1, y - 1)) {
-                    if (board.IsEmpty(x - 2, y - 2)) {
+            else if (co_y == board.GetSize() - 1 || co_y == board.GetSize()) {
+                if (!board.IsEmpty(co_x - 1, co_y + 1) && board.HasCheckerB(co_x - 1, co_y - 1)) {
+                    if (board.IsEmpty(co_x - 2, co_y - 2)) {
                         curbeaten = true;
                     }
                 }
