@@ -13,7 +13,7 @@ public:
 		move = !move;
 	}
 	Board GetGameBoard() {
-		return board;
+		return this->board;
 	}
 private:
 	Board board;

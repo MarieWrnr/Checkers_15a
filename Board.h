@@ -21,7 +21,7 @@ public:
 		else return false;
 	}
 	std::vector<std::vector<Figure*>> GetBoardVector() {
-		return board;
+		return this->board;
 	}
 private:
 	const int size;

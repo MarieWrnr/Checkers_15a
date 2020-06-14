@@ -14,7 +14,7 @@ Queen::Queen(int x, int y, char symb) {
 		this->symb = 'B';
 	}
 }
-void Queen::Move(int x, int y, Board& board) { //заменить на board
+bool Queen::Move(int x, int y, Board* board) { //заменить на board
 	/*if (abs(x - this->x) == turnDisance && abs(y - this->y) == turnDisance) {
 		if (desk[x][y] == '-') {
 			this->x = x;
@@ -28,8 +28,10 @@ void Queen::Move(int x, int y, Board& board) { //заменить на board
 
 	}*/
 	std::cout << "meow";
+	return true;
 }
 
-void Queen::Hit(int x, int y, Board& board) {
+ bool Queen::Hit(int co_x1, int co_y1, Board* board) {
 	std::cout << "meow";
+	return true;
 }
