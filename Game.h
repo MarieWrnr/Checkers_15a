@@ -12,7 +12,7 @@ public:
 	void SetMove() {
 		move = !move;
 	}
-	Board GetGameBoard() {
+	Board& GetGameBoard() {
 		return this->board;
 	}
 private:

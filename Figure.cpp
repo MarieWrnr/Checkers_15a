@@ -11,10 +11,10 @@ Figure::Figure(int x, int y, char symb) {
 	}
 }
 
-void Figure::setCoords(int x, int y) {
+/*void Figure::setCoords(int x, int y) {
 	this->x = x;
 	this->y = y;
-}
+}*/
 
 void Figure::setInGame(bool state) {
 	this->inGame = state;

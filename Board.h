@@ -20,8 +20,8 @@ public:
 		if (board[x - 1][y - 1]->GetSymb() == 'b' || board[x - 1][y - 1]->GetSymb() == 'B') return true;
 		else return false;
 	}
-	std::vector<std::vector<Figure*>> GetBoardVector() {
-		return this->board;
+	std::vector<std::vector<Figure*>>& GetBoardVector() {
+		return board;
 	}
 private:
 	const int size;

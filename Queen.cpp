@@ -1,5 +1,6 @@
 ﻿#include "Queen.h"
 #include "Figure.h"
+#include "Board.h"
 #include <iostream>
 
 Queen::Queen() {
@@ -14,24 +15,18 @@ Queen::Queen(int x, int y, char symb) {
 		this->symb = 'B';
 	}
 }
-bool Queen::Move(int x, int y, Board* board) { //заменить на board
-	/*if (abs(x - this->x) == turnDisance && abs(y - this->y) == turnDisance) {
-		if (desk[x][y] == '-') {
-			this->x = x;
-			this->y = y;
+bool Queen::Move(int co_x1, int co_y1, Board& board) { //????
+	if (abs(co_x1 - this->x) == 1 && abs(co_y1 - this->y) == 1) { //
+		if (board.IsEmpty(co_x1, co_y1)) {
+			board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->x - 1][this->y - 1];
+			board.GetBoardVector()[this->x - 1][this->y - 1] = nullptr;
+			this->x = co_x1;
+			this->y = co_y1;
+			return true;
 		}
-		else if (desk[x][y] != '-' && symb != desk[x][y]) { //board
-			turnDisance = 2;
-			Hit(x, y, desk);
-
-		}
-
-	}*/
-	std::cout << "meow";
-	return true;
+	}
 }
 
- bool Queen::Hit(int co_x1, int co_y1, Board* board) {
-	std::cout << "meow";
+ bool Queen::Hit(int co_x1, int co_y1, Board& board) {
 	return true;
 }

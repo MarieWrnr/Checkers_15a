@@ -91,31 +91,49 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
     return curbeaten;
 }
 
-bool Checker::Move(int co_x, int co_y, Board* board) { //çàìåíèòü íà board
-	if (abs(co_x - this->x) == 1 && abs(co_y - this->y) == 1) {
-		if (board->IsEmpty(co_x, co_y)) {
-            board->GetBoardVector()[co_x - 1][co_y - 1] = board->GetBoardVector()[this->x - 1][this->y - 1];
-            board->GetBoardVector()[this->x - 1][this->y - 1] = nullptr;
-			this->x = co_x;
-			this->y = co_y;
+bool Checker::Move(int co_x, int co_y, Board& board) { //îíà íå äîëæíà õîäèòü íàçàä!!!! è íàäî äîáàâèòü äîñòèæåíèå äî êîğîëåâû
+
+    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x - this->y == 1) ||
+        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x == 1)) {
+
+        if (board.IsEmpty(co_x, co_y)) {
+            board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+            board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
+            this->x = co_y; //ïî÷åìó-òî óêàçàòåëè íà êîîğäèíàòû ïîìåíÿëèñü ìåñòàìè â øàøêå è òåïåğü õ - ñòîëáåö, a y - ñòğîêà :\/
+            this->y = co_x;
             return true;
-		}
-		/*else if (!board.IsEmpty(x, y) && symb != board.GetBoardVector()[x - 1][y - 1]->GetSymb()) { //board
-			turnDistance = 2; ÄÎÁÀÂÈÒÜ İÒÎ Â ÌİÉÍ Â ÏĞÈÄÀ×Ó Ê ÏĞÎÂÅĞÊÅ, ÄÎÁÀÂÈÒÜ ÏÎËÅ ÈÇÌÅÍÅÍÈß ĞÀÑÑÒÎßÍÈß
-			Hit(x, y, board);
-		}*/
-
-	}
-
+            /*else if (!board.IsEmpty(x, y) && symb != board.GetBoardVector()[x - 1][y - 1]->GetSymb()) { //board
+                turnDistance = 2; ÄÎÁÀÂÈÒÜ İÒÎ Â ÌİÉÍ Â ÏĞÈÄÀ×Ó Ê ÏĞÎÂÅĞÊÅ, ÄÎÁÀÂÈÒÜ ÏÎËÅ ÈÇÌÅÍÅÍÈß ĞÀÑÑÒÎßÍÈß (à íàäî ëè?)
+                Hit(x, y, board);
+            }*/
+        }
+        else return false;
+    }
+    else return false;
 }
 
-bool Checker::Hit(int co_x1, int co_y1, Board* board) {
-    if (board->IsEmpty(co_x1, co_y1)) {
-        board->GetBoardVector()[co_x1 - 1][co_y1 - 1] = board->GetBoardVector()[this->x - 1][this->y - 1];
-        board->GetBoardVector()[this->x - 1][this->y - 1] = nullptr;
-        board->GetBoardVector()[this->x][this->y] = nullptr;
-        this->x = co_x1;
-        this->y = co_y1;
-        return true;
+bool Checker::Hit(int co_x1, int co_y1, Board& board) { //ãäå-òî îøèáêà, ïåğåïğîâåğèòü
+    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x1 - this->y == 2 && abs(co_y1 - this->x)) ||
+        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x))) {
+
+        if (board.IsEmpty(co_x1, co_y1)) { //íàëè÷èå ÷åğíîé øàøêè óæå ïğîâåğåíî; íåîáõîäèìî ğåàëèçîâàòü ïîäà÷ó äâîéíîãî áèòüÿ; íàçàä áèòü íèçÿ
+            board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+            //ïî÷åìó-òî óêàçàòåëè íà êîîğäèíàòû ïîìåíÿëèñü ìåñòàìè â øàøêå è òåïåğü õ - ñòîëáåö, a y - ñòğîêà :\/
+            board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
+
+            if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') {
+                if (co_y1 - this->x == 1) board.GetBoardVector()[this->y][this->x] = nullptr;
+                else board.GetBoardVector()[this->y][this->x - 2] = nullptr;
+            }
+            else if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') {
+                if (this->y - co_x1 == -1)  board.GetBoardVector()[this->y - 2][this->x] = nullptr;
+                else board.GetBoardVector()[this->y - 2][this->x - 2] = nullptr;
+            }
+            this->x = co_y1;
+            this->y = co_x1;
+            return true;
+        }
+        else return false;
     }
+    else return false;
 }

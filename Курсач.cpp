@@ -36,58 +36,75 @@ int main()
 
 
         while (true) { //process of game
-            game.Display();
+            game.Display(); //отображение текущей доски
 
             cout << endl;
 
-            cout << "Now its turn of " << game.CheckPlayer() << endl;
-        coords:
+            cout << "Now its turn of " << game.CheckPlayer() << endl; //проверка игрока
+
+        coords: //отправная точка для ввода координат шашки
+
             cout << "Choose a checker (input coords): " << endl;
-            x = CheckCoord(); //проверка координат
+            x = CheckCoord(); //проверка координат (выход за пределы массива)
             y = CheckCoord();
+
             if (game.GetGameBoard().IsEmpty(x, y)) { 
+                /*блок кода проверяет, является ли выбранная шашка пустой*/
+
                 cout << "Choose another coords, these are empty" << endl;
                 goto coords;
             }
+
             else if ((game.GetGameBoard().HasCheckerB(x, y) && game.CheckPlayer() == "Player 1") || !game.GetGameBoard().HasCheckerB(x, y) && game.CheckPlayer() == "Player 2") {
+                /*блок кода, который провряет, соответствует ли выбранная шашка цвету игрока*/
+
                 cout << "Choose another coords, this checker is not yours" << endl;
                 goto coords;
             }
-            if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) { //может ли бить текущая шашка 
-               bool curr = false;
+            int x1, y1;
+            if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) { 
+               //может ли бить текущая шашка 
+               bool curr = false; //определяет в цикле, может ли бить хотя бы какая-то шашка
                for (int i = 1; i < 9; i++) {//могут ли бить остальные шашки
                    for (int j = 1; j < 9; j++) {
                        if (!game.GetGameBoard().IsEmpty(i, j)) { 
                            curr = game.GetGameBoard().GetBoardVector()[i - 1][j - 1]->CanBeat(game.GetGameBoard(), i, j);
-                           if (curr) {
-                               cout << "Please, find a checker to beat your opponent" << endl;
-                               break;
+                           if (!game.GetGameBoard().HasCheckerB(i, j) && game.CheckPlayer() == "Player 1" || game.GetGameBoard().HasCheckerB(i, j) && game.CheckPlayer() == "Player 2") {
+                               if (curr) {
+                                   cout << "Please, find a checker to beat your opponent" << endl;
+                                   goto coords;
+                               }
                            }
                        }
                    }
                }
-               if (curr) { //если хотя бы одна может - выбираем другую шашку
-                   goto coords;
-               }
-               else {
-                   cout << "Choose coords to make a move: " << endl;
-                   int x1, y1;
-                   coords1:
-                   x1 = CheckCoord();
-                   y1 = CheckCoord();
-                   if (game.GetGameBoard().IsEmpty(x1, y1)) {
-                       game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Move(x1, y1, &game.GetGameBoard());
-                       cout << game.GetGameBoard().IsEmpty(x, y);
-                   }
-                   else {
-                       cout << "This cell is busy!" << endl;
+               cout << "Choose coords to make a move: " << endl;
+               coords1: //отправная точка для ввода координат хода
+               x1 = CheckCoord();
+               y1 = CheckCoord();
+               if (game.GetGameBoard().IsEmpty(x1, y1)) {
+                   /*блок кода, проверяющий клетку на свободность и успешное выполнение хода; 
+                   иначе отправляет снова вводить координаты*/
+
+                   if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Move(x1, y1, game.GetGameBoard())) {
+                       cout << "Wrong coords, choose another:" << endl;
                        goto coords1;
                    }
                }
+               else {
+                   cout << "This cell is busy!" << endl;
+                   goto coords1;
+               }
             }
             else {
-                cout << "congrats!" << endl;
-                //game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Hit(x, y, game.GetGameBoard());
+                cout << "congrats! You've achieved the hit" << endl;
+                coords2:
+                x1 = CheckCoord();
+                y1 = CheckCoord();
+                if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Hit(x1, y1, game.GetGameBoard())) {
+                    cout << "You can not beat, choose another coords:" << endl;
+                    goto coords2;
+                }
             }
            game.SetMove();
         } //дохрена всего короче менять надо, я спать
