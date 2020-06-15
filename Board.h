@@ -12,7 +12,7 @@ public:
 		return board[x-1][y-1] == nullptr;
 	}
 
-	const int GetSize() const {
+	size_t GetSize() const {
 		return board.size();
 	}
 

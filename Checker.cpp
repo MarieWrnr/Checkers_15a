@@ -1,5 +1,6 @@
 #include <vector>
 #include "Checker.h"
+#include "Queen.h"
 #include "Figure.h"
 #include "Board.h"
 #include <cmath>
@@ -32,7 +33,7 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
                     curbeaten = true;
                 }
             }
-            else if (!board.IsEmpty(co_x + 1, co_y - 1) && board.HasCheckerB(co_x + 1, co_y - 1)) { //левая диагональ
+            if (!board.IsEmpty(co_x + 1, co_y - 1) && board.HasCheckerB(co_x + 1, co_y - 1)) { //левая диагональ
                 if (board.IsEmpty(co_x + 2, co_y - 2)) {
                     curbeaten = true;
                 }
@@ -128,7 +129,11 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
         (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x == 1 && abs(co_y - this->x) == 1)) {
 
         if (board.IsEmpty(co_x, co_y)) {
-            board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+            if (co_x != 8 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' ||
+                co_x != 1 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b')  board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+            else {  
+                board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
+            }
             board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
             this->x = co_y; //почему-то указатели на координаты поменялись местами в шашке и теперь х - столбец, a y - строка :\/
             this->y = co_x;
@@ -143,7 +148,7 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
     else return false;
 }
 
-bool Checker::Hit(int co_x1, int co_y1, Board& board) { //где-то ошибка, перепроверить
+bool Checker::Hit(int co_x1, int co_y1, Board& board) { 
     if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x1 - this->y == 2 && abs(co_y1 - this->x) == 2) ||
         (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x) == 2)) {
 

@@ -66,6 +66,8 @@ int main()
             if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) { 
                //может ли бить текущая шашка 
                bool curr = false; //определяет в цикле, может ли бить хотя бы какая-то шашка
+               int c1 = 7, c2 = 3;
+               game.GetGameBoard().GetBoardVector()[6][2]->CanBeat(game.GetGameBoard(), c1, c2); //не работает только в конкретном случае
                for (int i = 1; i < 9; i++) {//могут ли бить остальные шашки
                    for (int j = 1; j < 9; j++) {
                        if (!game.GetGameBoard().IsEmpty(i, j)) { 
@@ -81,6 +83,9 @@ int main()
                }
 
                if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanMove(game.GetGameBoard(), x, y)) {
+                   if (game.GetGameBoard().HasCheckerB(x, y)) {
+                       cout << "WTF?" << endl;
+                   }
                    cout << "Please, find a checker has an opportunity to move" << endl;
                    goto coords;
                }
@@ -130,6 +135,6 @@ int main()
                 else exit(0);
             }
            game.SetMove();
-        } //дохрена всего короче менять надо, я спать
+        } //много всего короче менять надо, я спать
     }
 }

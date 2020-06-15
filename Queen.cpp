@@ -4,16 +4,18 @@
 #include <iostream>
 
 Queen::Queen() {
+	if (this->symb == 'w') {
+		symb = 'W';
+	}
+	else if (this->symb == 'b') {
+		symb = 'B';
+	}
 }
-Queen::Queen(int x, int y, char symb) {
-	this->x = x;
-	this->y = y;
-	if (symb == 'w') {
-		this->symb = 'W';
-	}
-	else if (symb == 'b') {
-		this->symb = 'B';
-	}
+bool Queen::CanBeat(const Board& board, int& co_x, int& co_y)const {
+	return true;
+}
+bool Queen::CanMove(const Board& board, int& co_x, int& co_y)const {
+	return true;
 }
 bool Queen::Move(int co_x1, int co_y1, Board& board) { //????
 	if (abs(co_x1 - this->x) == 1 && abs(co_y1 - this->y) == 1) { //
@@ -25,6 +27,7 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) { //????
 			return true;
 		}
 	}
+	else return false;
 }
 
  bool Queen::Hit(int co_x1, int co_y1, Board& board) {
