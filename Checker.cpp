@@ -93,8 +93,8 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 
 bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить назад!!!! и надо добавить достижение до королевы
 
-    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x - this->y == 1) ||
-        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x == 1)) {
+    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x - this->y == 1  && abs(co_y - this->x) == 1) ||
+        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x == 1 && abs(co_y - this->x) == 1)) {
 
         if (board.IsEmpty(co_x, co_y)) {
             board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
@@ -113,22 +113,22 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
 }
 
 bool Checker::Hit(int co_x1, int co_y1, Board& board) { //где-то ошибка, перепроверить
-    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x1 - this->y == 2 && abs(co_y1 - this->x)) ||
-        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x))) {
+    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x1 - this->y == 2 && abs(co_y1 - this->x) == 2) ||
+        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x) == 2)) {
 
         if (board.IsEmpty(co_x1, co_y1)) { //наличие черной шашки уже проверено; необходимо реализовать подачу двойного битья; назад бить низя
             board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
             //почему-то указатели на координаты поменялись местами в шашке и теперь х - столбец, a y - строка :\/
-            board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
 
             if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') {
-                if (co_y1 - this->x == 1) board.GetBoardVector()[this->y][this->x] = nullptr;
+                if (co_y1 - this->x == 2) board.GetBoardVector()[this->y][this->x] = nullptr;
                 else board.GetBoardVector()[this->y][this->x - 2] = nullptr;
             }
             else if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') {
-                if (this->y - co_x1 == -1)  board.GetBoardVector()[this->y - 2][this->x] = nullptr;
+                if (this->x - co_y1 == -2)  board.GetBoardVector()[this->y - 2][this->x] = nullptr;
                 else board.GetBoardVector()[this->y - 2][this->x - 2] = nullptr;
             }
+            board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
             this->x = co_y1;
             this->y = co_x1;
             return true;
