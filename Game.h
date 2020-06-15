@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include <vector>
 #include "Board.h"
 
@@ -14,6 +15,9 @@ public:
 	}
 	Board& GetGameBoard() {
 		return this->board;
+	}
+	void GetWinner(std::string symb) {
+		std::cout << "Oh yeeeeeeeeeeeeeeaaaaaah, " << symb << " WON!" << std::endl;
 	}
 private:
 	Board board;

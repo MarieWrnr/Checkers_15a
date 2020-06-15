@@ -91,6 +91,37 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
     return curbeaten;
 }
 
+bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
+    if (!board.HasCheckerB(co_x, co_y)) {
+        if (co_y != board.GetSize() && co_y != 1) {
+            if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 1, co_y - 1)) return false;
+            else return true;
+        }
+        else if (co_y == board.GetSize()) {
+            if (!board.IsEmpty(co_x + 1, co_y - 1)) return false;
+            else return true;
+        }
+        else if (co_y == 1) {
+            if (!board.IsEmpty(co_x + 1, co_y + 1)) return false;
+            else return true;
+        }
+    }
+    else {
+        if (co_y != board.GetSize() && co_y != 1) {
+            if (!board.IsEmpty(co_x - 1, co_y + 1) && !board.IsEmpty(co_x - 1, co_y - 1)) return false;
+            else return true;
+        }
+        else if (co_y == board.GetSize()) {
+            if (!board.IsEmpty(co_x - 1, co_y - 1)) return false;
+            else return true;
+        }
+        else if (co_y == 1) {
+            if (!board.IsEmpty(co_x - 1, co_y + 1)) return false;
+            else return true;
+        }
+    }
+}
+
 bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить назад!!!! и надо добавить достижение до королевы
 
     if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x - this->y == 1  && abs(co_y - this->x) == 1) ||
@@ -124,13 +155,17 @@ bool Checker::Hit(int co_x1, int co_y1, Board& board) { //где-то ошибка, перепро
                 if (co_y1 - this->x == 2) board.GetBoardVector()[this->y][this->x] = nullptr;
                 else board.GetBoardVector()[this->y][this->x - 2] = nullptr;
             }
+
             else if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') {
                 if (this->x - co_y1 == -2)  board.GetBoardVector()[this->y - 2][this->x] = nullptr;
                 else board.GetBoardVector()[this->y - 2][this->x - 2] = nullptr;
             }
+
             board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
             this->x = co_y1;
             this->y = co_x1;
+            if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') board.SetBlacks(1);
+            else board.SetWhites(1);
             return true;
         }
         else return false;

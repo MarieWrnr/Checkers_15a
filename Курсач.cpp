@@ -29,6 +29,7 @@ int main()
     string answer;
     cin >> answer;
     if (answer == "yes") {
+        begin: //для начала новой игры
         cout << "Let's go!" << endl;
 
         Game game;
@@ -39,7 +40,6 @@ int main()
             game.Display(); //отображение текущей доски
 
             cout << endl;
-
             cout << "Now its turn of " << game.CheckPlayer() << endl; //проверка игрока
 
         coords: //отправная точка для ввода координат шашки
@@ -61,6 +61,7 @@ int main()
                 cout << "Choose another coords, this checker is not yours" << endl;
                 goto coords;
             }
+            
             int x1, y1;
             if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) { 
                //может ли бить текущая шашка 
@@ -78,6 +79,12 @@ int main()
                        }
                    }
                }
+
+               if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanMove(game.GetGameBoard(), x, y)) {
+                   cout << "Please, find a checker has an opportunity to move" << endl;
+                   goto coords;
+               }
+
                cout << "Choose coords to make a move: " << endl;
                coords1: //отправная точка для ввода координат хода
                x1 = CheckCoord();
@@ -85,7 +92,6 @@ int main()
                if (game.GetGameBoard().IsEmpty(x1, y1)) {
                    /*блок кода, проверяющий клетку на свободность и успешное выполнение хода; 
                    иначе отправляет снова вводить координаты*/
-
                    if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Move(x1, y1, game.GetGameBoard())) {
                        cout << "Wrong coords, choose another:" << endl;
                        goto coords1;
@@ -105,6 +111,23 @@ int main()
                     cout << "You can not beat, choose another coords:" << endl;
                     goto coords2;
                 }
+            }
+            if (game.GetGameBoard().GetBlacks() == 0) {
+                game.GetWinner("Player 1");
+                string answer;
+                delete& game;
+                cout << "Do you want to play a new game?" << endl;
+                cin >> answer;
+                if (answer == "yes") goto begin;
+                else exit(0);
+            }
+            else if (game.GetGameBoard().GetWhites() == 0) {
+                game.GetWinner("Player 2");
+                delete& game;
+                cout << "Do you want to play a new game?" << endl;
+                cin >> answer;
+                if (answer == "yes") goto begin;
+                else exit(0);
             }
            game.SetMove();
         } //дохрена всего короче менять надо, я спать

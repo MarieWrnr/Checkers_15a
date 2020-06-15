@@ -20,11 +20,29 @@ public:
 		if (board[x - 1][y - 1]->GetSymb() == 'b' || board[x - 1][y - 1]->GetSymb() == 'B') return true;
 		else return false;
 	}
+
 	std::vector<std::vector<Figure*>>& GetBoardVector() {
 		return board;
 	}
+
+	int GetBlacks() {
+		return blacks;
+	}
+	int GetWhites() {
+		return whites;
+	}
+
+	void SetBlacks(int count) {
+		blacks -= count;
+	}
+	void SetWhites(int count) {
+		whites -= count;
+	}
+
 private:
 	const int size;
+	int blacks = 12;
+	int whites = 12;
 	std::vector<std::vector<Figure*>> board;
 };
 
