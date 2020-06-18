@@ -17,8 +17,9 @@ public:
 	char GetSymb() {
 		return symb;
 	}
-	virtual bool CanBeat(const Board& board, int& co_x, int& co_y)const = 0;
-	virtual bool CanMove(const Board& board, int& co_x, int& co_y)const = 0;
+	void SetSymbol(char symb) {
+		this->symb = symb;
+	}
 	virtual bool Move(int co_x1, int co_y1, Board& board) = 0; //bool ибо проверяет прошла ли операция успешно
 	virtual bool Hit(int co_x1, int сo_y1, Board& board) = 0;
 };
