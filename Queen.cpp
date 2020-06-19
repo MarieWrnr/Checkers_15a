@@ -8,7 +8,13 @@ Queen::Queen() {
 	isQueen = true;
 }
 bool Queen::CanBeat(const Board& board, int& co_x, int& co_y)const {
-	return true;
+}
+bool Queen::CanMove(const Board& board, int& co_x, int& co_y)const {
+	if (co_x != board.GetSize() && co_x != board.GetSize() - 1 && co_x != 1 && co_x != 2 &&
+		co_y != board.GetSize() && co_y != board.GetSize() - 1 && co_y != 1 && co_x != 2) {
+		if (!board.IsEmpty(co_x, co_y - 1)) {
+		}
+	}
 }
 bool Queen::Move(int co_x1, int co_y1, Board& board) { 
 	/*Если вверх-вниз - х меняется, а у нет

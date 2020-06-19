@@ -1,8 +1,44 @@
-﻿  Checker.cpp
+﻿  Board.cpp
+  Checker.cpp
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136): error C2259: "Queen": невозможно создать экземпляр абстрактного класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(4): message : см. объявление "Queen"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136): message : из-за следующих членов:
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136): message : bool Figure::CanBeat(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(23): message : см. объявление "Figure::CanBeat"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136): message : bool Figure::CanMove(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(24): message : см. объявление "Figure::CanMove"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136,71): error C2259: "Queen": невозможно создать экземпляр абстрактного класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(4): message : см. объявление "Queen"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136,71): message : из-за следующих членов:
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136,71): message : bool Figure::CanBeat(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(23): message : см. объявление "Figure::CanBeat"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(136,71): message : bool Figure::CanMove(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(24): message : см. объявление "Figure::CanMove"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(140): error C2259: "Queen": невозможно создать экземпляр абстрактного класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(4): message : см. объявление "Queen"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(140): message : из-за следующих членов:
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(140): message : bool Figure::CanBeat(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(23): message : см. объявление "Figure::CanBeat"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(140): message : bool Figure::CanMove(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(24): message : см. объявление "Figure::CanMove"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(177): error C2259: "Queen": невозможно создать экземпляр абстрактного класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(4): message : см. объявление "Queen"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(177): message : из-за следующих членов:
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(177): message : bool Figure::CanBeat(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(23): message : см. объявление "Figure::CanBeat"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(177): message : bool Figure::CanMove(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(24): message : см. объявление "Figure::CanMove"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(181): error C2259: "Queen": невозможно создать экземпляр абстрактного класса
+C:\Users\User\Desktop\Checkers_15a\Queen.h(4): message : см. объявление "Queen"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(181): message : из-за следующих членов:
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(181): message : bool Figure::CanBeat(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(23): message : см. объявление "Figure::CanBeat"
+C:\Users\User\Desktop\Checkers_15a\Checker.cpp(181): message : bool Figure::CanMove(const Board &,int &,int &) const: абстрактный
+C:\Users\User\Desktop\Checkers_15a\Figure.h(24): message : см. объявление "Figure::CanMove"
+  Figure.cpp
+  Game.cpp
   Queen.cpp
   Курсач.cpp
   Создание кода...
 C:\Users\User\Desktop\Checkers_15a\Курсач.cpp(24): warning C4715: CheckCoord: значение возвращается не при всех путях выполнения
-C:\Users\User\Desktop\Checkers_15a\Queen.cpp(24): warning C4715: Queen::Move: значение возвращается не при всех путях выполнения
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(126): warning C4715: Checker::CanMove: значение возвращается не при всех путях выполнения
-  Курсач.vcxproj -> C:\Users\User\Desktop\Checkers_15a\x64\Debug\Курсач.exe
+C:\Users\User\Desktop\Checkers_15a\Queen.cpp(68): warning C4715: Queen::Move: значение возвращается не при всех путях выполнения

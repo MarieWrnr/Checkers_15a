@@ -138,7 +138,7 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
             }
             else if (co_x == 1 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') { 
                 board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
-                board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('W');
+                board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('B');
             }
 
             board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
