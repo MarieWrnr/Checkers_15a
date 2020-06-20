@@ -83,9 +83,6 @@ int main()
                }
 
                if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanMove(game.GetGameBoard(), x, y)) {
-                   if (game.GetGameBoard().HasCheckerB(x, y)) {
-                       cout << "WTF?" << endl;
-                   }
                    cout << "Please, find a checker has an opportunity to move" << endl;
                    goto coords;
                }
@@ -112,8 +109,14 @@ int main()
                 coords2:
                 x1 = CheckCoord();
                 y1 = CheckCoord();
-                if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Hit(x1, y1, game.GetGameBoard())) {
-                    cout << "You can not beat, choose another coords:" << endl;
+                if (game.GetGameBoard().IsEmpty(x1, y1)) {
+                    if (!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->Hit(x1, y1, game.GetGameBoard())) {
+                        cout << "You can not beat, choose another coords:" << endl;
+                        goto coords2;
+                    }
+                }
+                else {
+                    cout << "This cell is busy!" << endl;
                     goto coords2;
                 }
             }

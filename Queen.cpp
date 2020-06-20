@@ -7,75 +7,296 @@
 Queen::Queen() {
 	isQueen = true;
 }
-bool Queen::CanBeat(const Board& board, int& co_x, int& co_y)const {
-}
-bool Queen::CanMove(const Board& board, int& co_x, int& co_y)const {
-	if (co_x != board.GetSize() && co_x != board.GetSize() - 1 && co_x != 1 && co_x != 2 &&
-		co_y != board.GetSize() && co_y != board.GetSize() - 1 && co_y != 1 && co_x != 2) {
-		if (!board.IsEmpty(co_x, co_y - 1)) {
-		}
-	}
-}
-bool Queen::Move(int co_x1, int co_y1, Board& board) { 
-	/*Если вверх-вниз - х меняется, а у нет
-	  Если вправо-влево - у меняется, а х нет
-	  Если по диагонали - у и х меняются с одинаковым интервалом (но разными знаками)
-	  -- - левая диагональ вниз
-	  -+ - правая диагональ вниз
-	  +- - левая диагональ вверх
-	  ++ - правая диагональ вверх
-	  Если нет на пути фишечек - все прекрасненько
-	  Если одна черная - бей, бей, беееееееей
-	  есть и занятая - бить низя
-	  проработать сначала мув, потом CanBeat, 
-	  */
-	//сначала по сторонам
-	if (board.IsEmpty(co_x1, co_y1)) {
-		if (co_x1 == this->y && board.IsEmpty(co_x1, co_y1)) { //влево-вправо
-			if (co_y1 < this->x) { //новая координата меньше -> движемся вниз
-					for (int i = this->x - 1; i > co_y1; i--) {
-						if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'W') {
-							if (!board.IsEmpty(co_x1, i) && board.HasCheckerB(this->y, i)) { //вызывать удар отсюда, убрать CanBeat
-								return false;
-							}
-						}
-						else {
-							if (!board.IsEmpty(co_x1, i) && !board.HasCheckerB(this->y, i)) {
-								return false;
-							}
-						}
-					}
-					return true;
-			}
-			else {
-				for (int i = this->x - 1; i > co_y1; i--) {
-					if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'W') {
-						if (!board.IsEmpty(co_x1, i) && board.HasCheckerB(this->y, i)) { //вызывать удар отсюда, убрать CanBeat
-							return false;
-						}
-					}
+bool Queen::UpDown(const Board& board, int& co_x, int& co_y, char key)const {
+	bool black = board.HasCheckerB(co_x, co_y);
+	if (key == 'd') {
+		for (int i = co_x - 1; i >= 2; i--) {
+			if (!black) {
+				if (!board.IsEmpty(i, co_y)) {
+					if (!board.HasCheckerB(i, co_y)) return false;
 					else {
-						if (!board.IsEmpty(co_x1, i) && !board.HasCheckerB(this->y, i)) {
-							return false;
-						}
+						if (!board.IsEmpty(i - 1, co_y)) return false;
+						else return true;
 					}
 				}
-				return true;
+			}
+			else {
+				if (!board.IsEmpty(i, co_y)) {
+					if (board.HasCheckerB(i, co_y)) return false;
+					else {
+						if (!board.IsEmpty(i - 1, co_y)) return false;
+						else return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	else {
+		for (int i = co_x; i < board.GetSize(); i++) {
+			if (!black) {
+				if (!board.IsEmpty(i, co_y)) {
+					if (!board.HasCheckerB(i, co_y)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, co_y)) return false;
+						else return true;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(i, co_y)) {
+					if (board.HasCheckerB(i, co_y)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, co_y)) return false;
+						else return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+}
+bool Queen::LeftRight(const Board& board, int& co_x, int& co_y, char key)const {
+	bool black = board.HasCheckerB(co_x, co_y);
+	if (key == 'l') {
+		for (int i = co_y - 1; i >= 2; i--) {
+			if (!black) {
+				if (!board.IsEmpty(co_x, i)) {
+					if (!board.HasCheckerB(co_x, i)) return false;
+					else {
+						if (!board.IsEmpty(co_x, i - 1)) return false;
+						else return true;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(co_x, i)) {
+					if (board.HasCheckerB(co_x, i)) return false;
+					else {
+						if (!board.IsEmpty(co_x, i - 1)) return false;
+						else return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	else {
+		for (int i = co_y + 1; i < board.GetSize(); i++) {
+			if (!black) {
+				if (!board.IsEmpty(co_x, i)) {
+					if (!board.HasCheckerB(co_x, i)) return false;
+					else {
+						if (!board.IsEmpty(co_x, i + 1)) return false;
+						else return true;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(co_x, i)) {
+					if (board.HasCheckerB(co_x, i)) return false;
+					else {
+						if (!board.IsEmpty(co_x, i + 1)) return false;
+						else return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+}
+bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
+	bool black = board.HasCheckerB(co_x, co_y);
+	int j;
+	switch (key) {
+	case 1:
+		j = co_y + 1;
+		for (int i = co_x + 1; i < board.GetSize(); i++) {
+			if (!black) {
+				if (!board.IsEmpty(i, j)) {
+					if (!board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, j + 1)) return false;
+						else return false;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(i, j)) {
+					if (board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, j + 1)) return false;
+						else return false;
+					}
+				}
+			}
+			j++;
+		}
+		return false;
+	case 2:
+		j = co_y - 1;
+		for (int i = co_x + 1; i < board.GetSize(); i++) {
+			if (!black) {
+				if (!board.IsEmpty(i, j)) {
+					if (!board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, j - 1)) return false;
+						else return false;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(i, j)) {
+					if (board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i + 1, j - 1)) return false;
+						else return false;
+					}
+				}
+			}
+			j--;
+		}
+		return false;
+	case 3:
+		j = co_y - 1;
+		for (int i = co_x - 1; i >= 2; i--) {
+			if (!black) {
+				if (!board.IsEmpty(i, j)) {
+					if (!board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i - 1, j - 1)) return false;
+						else return false;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(i, j)) {
+					if (board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i - 1, j - 1)) return false;
+						else return false;
+					}
+				}
+			}
+			j--;
+		}
+		return false;
+	case 4:
+		j = co_y + 1;
+		for (int i = co_x - 1; i >= 2; i--) {
+			if (!black) {
+				if (!board.IsEmpty(i, j)) {
+					if (!board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i - 1, j + 1)) return false;
+						else return false;
+					}
+				}
+			}
+			else {
+				if (!board.IsEmpty(i, j)) {
+					if (board.HasCheckerB(i, j)) return false;
+					else {
+						if (!board.IsEmpty(i - 1, j + 1)) return false;
+						else return false;
+					}
+				}
+			}
+			j--;
+		}
+		return false;
+	}
+}
+bool Queen::CanBeat(const Board& board, int& co_x, int& co_y)const {
+	//тут повеселее
+	//вверх-вниз, стараемся использовать функции
+	if (UpDown(board, co_x, co_y, 'd')) return true;
+	else if (UpDown(board, co_x, co_y, 'u')) return true;
+	//влево-вправо
+	else if (LeftRight(board, co_x, co_y, 'l')) return true;
+	else if (LeftRight(board, co_x, co_y, 'r')) return true;
+
+	//диагональ
+	else if (Diagonale(board, co_x, co_y, 1)) return true;
+	else if (Diagonale(board, co_x, co_y, 2)) return true;
+	else if (Diagonale(board, co_x, co_y, 3)) return true;
+	else if (Diagonale(board, co_x, co_y, 4)) return true;
+	else return false;
+}
+bool Queen::CanMove(const Board& board, int& co_x, int& co_y)const {
+	return true; //т.к такая вероятность крайне мала
+}
+bool Queen::Move(int co_x1, int co_y1, Board& board) { 
+	bool black = board.HasCheckerB(this->y, this->x);
+	if (this->x == co_y1) {
+		if (this->y > co_x1) { //down
+			for (int i = this->y - 1; i >= co_x1; i--) {
+				if (!board.IsEmpty(i, co_y1)) return false;
+			}
+		}
+		else { //up
+			for (int i = this->y + 1; i < co_x1; i++) {
+				if (!board.IsEmpty(i, co_y1)) return false;
 			}
 		}
 	}
-	/*if (abs(co_x1 - this->x) == 1 && abs(co_y1 - this->y) == 1) { //
-		if (board.IsEmpty(co_x1, co_y1)) {
-			board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->x - 1][this->y - 1];
-			board.GetBoardVector()[this->x - 1][this->y - 1] = nullptr;
-			this->x = co_x1;
-			this->y = co_y1;
-			return true;
+	else if (this->y == co_x1) {
+		if (this->x > co_y1) { //left
+			for (int i = this->x - 1; i >= co_y1; i--) {
+				if (!board.IsEmpty(co_x1, i)) return false;
+			}
 		}
-	}*/
-	else return false;
+		else { //right
+			for (int i = this->x + 1; i < co_y1; i++) {
+				if (!board.IsEmpty(co_x1, i)) return false;
+			}
+		}
+	}
+	else {
+		int j;
+		if (co_x1 > this->y && co_y1 > this->x) { //1
+			j = this->x + 1;
+			for (int i = this->y + 1; i < co_x1; i++) {
+				if (!board.IsEmpty(i, j)) return false;
+				j++;
+			}
+		}
+		else if (co_x1 > this->x && co_y1 < this->x) { //2
+			j = co_y1 - 1;
+			for (int i = this->y + 1; i < co_x1; i++) {
+				if (!board.IsEmpty(i, j)) return false;
+				j--;
+			}
+		}
+		else if (co_x1 < this->y && co_y1 < this->x) { //3
+			j = co_y1 - 1;
+			for (int i = this->y - 1; i > co_x1; i--) {
+				if (!board.IsEmpty(i, j)) return false;
+				j--;
+			}
+		}
+		else { //4
+			j = this->x + 1;
+			for (int i = this->y - 1; i > co_x1; i--) {
+				if (!board.IsEmpty(i, j)) return false;
+				j++;
+			}
+		}
+	}
+	board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+	board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
+	this->x = co_x1;
+	this->y = co_y1;
+	return true;
 }
 
  bool Queen::Hit(int co_x1, int co_y1, Board& board) {
+	 board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
+	 board.GetBoardVector()[this->y-3][this->x-3] = nullptr;
+	 board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
+	 this->x = co_x1;
+	 this->y = co_y1;
+	 if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') board.SetBlacks(1);
+	 else board.SetWhites(1);
 	return true;
 }

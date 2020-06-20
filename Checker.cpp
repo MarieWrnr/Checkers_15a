@@ -22,8 +22,8 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 	bool curbeaten = false;
     //char other_color = (symb == 'b') ? 'w' : 'b';
     //int delta_x = (symb == 'b') ? 1 : -1;
-
-    if (!board.HasCheckerB(co_x, co_y)) {
+    bool black = board.HasCheckerB(co_x, co_y);
+    if (!black) {
         if (co_y != board.GetSize() && co_y != 1 && co_y != 2 && co_y != board.GetSize() - 1 && 
             co_x != board.GetSize() && co_x != board.GetSize() - 1) {
 
@@ -95,7 +95,8 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 }
 
 bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
-    if (!board.HasCheckerB(co_x, co_y)) {
+    bool black = board.HasCheckerB(co_x, co_y);
+    if (!black) {
         if (co_y != board.GetSize() && co_y != 1) {
             if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 1, co_y - 1)) return false;
             else return true;
@@ -126,17 +127,16 @@ bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
 }
 
 bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить назад!!!! и надо добавить достижение до королевы
+    char checker = board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb();
+    if ((checker == 'w' && co_x - this->y == 1  && abs(co_y - this->x) == 1) ||
+        (checker == 'b' && this->y - co_x == 1 && abs(co_y - this->x) == 1)) {
 
-    if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x - this->y == 1  && abs(co_y - this->x) == 1) ||
-        (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x == 1 && abs(co_y - this->x) == 1)) {
-
-        if (board.IsEmpty(co_x, co_y)) {
             board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
-            if (co_x == 8 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') { 
+            if (co_x == 8 && checker == 'w') { 
                 board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
                 board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('W');
             }
-            else if (co_x == 1 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') { 
+            else if (co_x == 1 && checker == 'b') { 
                 board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
                 board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('B');
             }
@@ -149,8 +149,6 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
                 turnDistance = 2; ƒќЅј¬»“№ Ё“ќ ¬ ћЁ…Ќ ¬ ѕ–»ƒј„”   ѕ–ќ¬≈– ≈, ƒќЅј¬»“№ ѕќЋ≈ »«ћ≈Ќ≈Ќ»я –ј——“ќяЌ»я (а надо ли?)
                 Hit(x, y, board);
             }*/
-        }
-        else return false;
     }
     else return false;
 }
@@ -158,8 +156,6 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
 bool Checker::Hit(int co_x1, int co_y1, Board& board) { 
     if ((board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w' && co_x1 - this->y == 2 && abs(co_y1 - this->x) == 2) ||
         (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x) == 2)) {
-
-        if (board.IsEmpty(co_x1, co_y1)) { 
 
             board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
             //почему-то указатели на координаты помен€лись местами в шашке и теперь х - столбец, a y - строка :\/
@@ -188,8 +184,6 @@ bool Checker::Hit(int co_x1, int co_y1, Board& board) {
             if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') board.SetBlacks(1);
             else board.SetWhites(1);
             return true;
-        }
-        else return false;
     }
     else return false;
 }
