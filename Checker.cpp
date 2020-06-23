@@ -98,29 +98,31 @@ bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
     bool black = board.HasCheckerB(co_x, co_y);
     if (!black) {
         if (co_y != board.GetSize() && co_y != 1) {
-            if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 1, co_y - 1)) return false;
+            if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 1, co_y - 1) &&
+                !board.IsEmpty(co_x + 2, co_y + 2) && !board.IsEmpty(co_x + 1, co_y - 2)) return false;
             else return true;
         }
         else if (co_y == board.GetSize()) {
-            if (!board.IsEmpty(co_x + 1, co_y - 1)) return false;
+            if (!board.IsEmpty(co_x + 1, co_y - 1) && !board.IsEmpty(co_x + 2, co_y - 2)) return false;
             else return true;
         }
         else if (co_y == 1) {
-            if (!board.IsEmpty(co_x + 1, co_y + 1)) return false;
+            if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 2, co_y + 2)) return false;
             else return true;
         }
     }
     else {
         if (co_y != board.GetSize() && co_y != 1) {
-            if (!board.IsEmpty(co_x - 1, co_y + 1) && !board.IsEmpty(co_x - 1, co_y - 1)) return false;
+            if (!board.IsEmpty(co_x - 1, co_y + 1) && !board.IsEmpty(co_x - 1, co_y - 1) &&
+                !board.IsEmpty(co_x - 2, co_y + 2) && !board.IsEmpty(co_x - 2, co_y - 2)) return false;
             else return true;
         }
         else if (co_y == board.GetSize()) {
-            if (!board.IsEmpty(co_x - 1, co_y - 1)) return false;
+            if (!board.IsEmpty(co_x - 1, co_y - 1) && !board.IsEmpty(co_x - 2, co_y - 2)) return false;
             else return true;
         }
         else if (co_y == 1) {
-            if (!board.IsEmpty(co_x - 1, co_y + 1)) return false;
+            if (!board.IsEmpty(co_x - 1, co_y + 1) && !board.IsEmpty(co_x - 2, co_y + 2)) return false;
             else return true;
         }
     }
@@ -133,11 +135,11 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
 
             board.GetBoardVector()[co_x - 1][co_y - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
             if (co_x == 8 && checker == 'w') { 
-                board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
+                board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen(co_x, co_y);
                 board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('W');
             }
             else if (co_x == 1 && checker == 'b') { 
-                board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen();
+                board.GetBoardVector()[co_x - 1][co_y - 1] = new Queen(co_x, co_y);
                 board.GetBoardVector()[co_x - 1][co_y - 1]->SetSymbol('B');
             }
 
@@ -170,11 +172,11 @@ bool Checker::Hit(int co_x1, int co_y1, Board& board) {
                 else board.GetBoardVector()[this->y - 2][this->x - 2] = nullptr;
             }
             if (co_x1 == 8 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') {
-                board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = new Queen();
+                board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = new Queen(co_x1, co_y1);
                 board.GetBoardVector()[co_x1 - 1][co_y1 - 1]->SetSymbol('W');
             }
             else if (co_x1 == 1 && board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b') {
-                board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = new Queen();
+                board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = new Queen(co_x1, co_y1);
                 board.GetBoardVector()[co_x1 - 1][co_y1 - 1]->SetSymbol('B');
             }
              
