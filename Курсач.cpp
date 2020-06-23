@@ -30,7 +30,6 @@ int main()
     string answer;
     cin >> answer;
     if (answer == "yes") {
-        begin: //для начала новой игры
         cout << "Let's go!" << endl;
 
         Game game;
@@ -122,20 +121,11 @@ int main()
             }
             if (game.GetGameBoard().GetBlacks() == 0) {
                 game.GetWinner("Player 1");
-                string answer;
-                delete& game;
-                cout << "Do you want to play a new game?" << endl;
-                cin >> answer;
-                if (answer == "yes") goto begin;
-                else exit(0);
+                exit(0);
             }
             else if (game.GetGameBoard().GetWhites() == 0) {
                 game.GetWinner("Player 2");
-                delete& game;
-                cout << "Do you want to play a new game?" << endl;
-                cin >> answer;
-                if (answer == "yes") goto begin;
-                else exit(0);
+                exit(0);
             }
            game.SetMove();
         } 

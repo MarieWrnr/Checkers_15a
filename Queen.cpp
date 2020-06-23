@@ -121,7 +121,7 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (!board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i + 1, j + 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
@@ -130,11 +130,12 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i + 1, j + 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
 				j++;
+				if (j > board.GetSize()) return false;
 			}
 		}
 		return false;
@@ -147,7 +148,7 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (!board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i + 1, j - 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
@@ -156,11 +157,12 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i + 1, j - 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
 				j--;
+				if (j < 1) return false;
 			}
 		}
 		return false;
@@ -173,7 +175,7 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (!board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i - 1, j - 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
@@ -182,11 +184,12 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i - 1, j - 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
 				j--;
+				if (j < 1) return false;
 			}
 		}
 		return false;
@@ -199,7 +202,7 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (!board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i - 1, j + 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
@@ -208,12 +211,12 @@ bool Queen::Diagonale(const Board& board, int& co_x, int& co_y, int key)const {
 						if (board.HasCheckerB(i, j)) return false;
 						else {
 							if (!board.IsEmpty(i - 1, j + 1)) return false;
-							else return false;
+							else return true;
 						}
 					}
 				}
 				j--;
-				if (j == 0) break;
+				if (j < 1) return false;
 			}
 		}
 		return false;
@@ -252,7 +255,7 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 			}
 		}
 	}
-	else if (this->y == co_x1) {
+	else if (this->x == co_x1) {
 		if (this->x > co_y1) { //left
 			for (int i = this->y - 1; i >= co_y1; i--) {
 				if (!board.IsEmpty(co_x1, i)) return false;
@@ -264,37 +267,39 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 			}
 		}
 	}
-	else {
+	else if (abs(co_x1 - this->x) == abs(co_y1 - this->y)) {
 		int j;
-		if (co_x1 > this->x && co_y1 > this->y) { //1
-			j = this->x + 1;
+
+		if (co_x1 > this->x&& co_y1 > this->y) { //1
+			j = this->y + 1;
 			for (int i = this->x + 1; i < co_x1; i++) {
 				if (!board.IsEmpty(i, j)) return false;
 				j++;
 			}
 		}
-		else if (co_x1 > this->x && co_y1 < this->y) { //2
-			j = co_y1 - 1;
+		else if (co_x1 > this->x&& co_y1 < this->y) { //2
+			j =  this->y - 1;
 			for (int i = this->x + 1; i < co_x1; i++) {
 				if (!board.IsEmpty(i, j)) return false;
 				j--;
 			}
 		}
-		else if (co_x1 < this->x && co_y1 < this->y) { //3
-			j = co_y1 - 1;
+		else if (co_x1 < this->x&& co_y1 < this->y) { //3
+			j = this->y - 1;
 			for (int i = this->x - 1; i > co_x1; i--) {
 				if (!board.IsEmpty(i, j)) return false;
 				j--;
 			}
 		}
 		else { //4
-			j = this->x + 1;
+			j = this->y + 1;
 			for (int i = this->x - 1; i > co_x1; i--) {
 				if (!board.IsEmpty(i, j)) return false;
 				j++;
 			}
 		}
 	}
+	else return false;
 	board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->x - 1][this->y - 1];
 	board.GetBoardVector()[this->x - 1][this->y - 1] = nullptr;
 	this->x = co_x1;
@@ -305,7 +310,9 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
  bool Queen::Hit(int co_x1, int co_y1, Board& board) {
 	 bool black = board.HasCheckerB(this->x, this->y);
 	 int countChecksdist = 0;
+	 int j;
 	 int coord;
+	 int coord2;
 	 if (this->y == co_y1) {
 		 if (this->x > co_x1) { //down
 			 for (int i = this->x - 1; i >= co_x1; i--) {
@@ -424,9 +431,7 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 		 if (countChecksdist > 1) return false;
 		 else  board.GetBoardVector()[co_x1 - 1][coord - 1] = nullptr;
 	 }
-	 int j;
-	 int coord2;
-	 if (abs(co_x1 - this->x) == abs(co_y1 - this->y)) {
+	 else if (abs(co_x1 - this->x) == abs(co_y1 - this->y)) {
 		 if (co_x1 > this->x&& co_y1 > this->y) { //1
 			 j = this->y + 1;
 			 for (int i = this->x + 1; i < co_x1; i++) {
@@ -460,7 +465,7 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 			 else  board.GetBoardVector()[coord - 1][coord2 - 1] = nullptr;
 		 }
 		 else if (co_x1 > this->x && co_y1 < this->y) { //2
-			 j = co_y1 - 1;
+			 j = this->y - 1;
 			 for (int i = this->x + 1; i < co_x1; i++) {
 				 if (!board.IsEmpty(i, j)) {
 					 if (!black) {
@@ -492,7 +497,7 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 			 else  board.GetBoardVector()[coord - 1][coord2 - 1] = nullptr;
 		 }
 		 else if (co_x1 < this->x && co_y1 < this->y) { //3
-			 j = co_y1 - 1;
+			 j = this->y - 1;
 			 for (int i = this->x - 1; i > co_x1; i--) {
 				 if (!board.IsEmpty(i, j)) return false;
 				 if (!black) {
@@ -555,6 +560,8 @@ bool Queen::Move(int co_x1, int co_y1, Board& board) {
 			 else  board.GetBoardVector()[coord - 1][coord2 - 1] = nullptr;
 		 }
 	 }
+	 else return false;
+
 	 if (board.GetBoardVector()[this->x - 1][this->y - 1]->GetSymb() == 'W') board.SetBlacks(1);
 	 else board.SetWhites(1);
 	 board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->x - 1][this->y - 1];
