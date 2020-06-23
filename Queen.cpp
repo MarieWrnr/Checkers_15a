@@ -4,6 +4,7 @@
 #include "Checker.h"
 #include <iostream>
 
+Queen::Queen() {}
 Queen::Queen(int x, int y) {
 	isQueen = true;
 	this->x = x;

@@ -20,8 +20,6 @@ Checker::Checker(int x, int y, char symb) {
 bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 {
 	bool curbeaten = false;
-    //char other_color = (symb == 'b') ? 'w' : 'b';
-    //int delta_x = (symb == 'b') ? 1 : -1;
     bool black = board.HasCheckerB(co_x, co_y);
     if (!black) {
         if (co_y != board.GetSize() && co_y != 1 && co_y != 2 && co_y != board.GetSize() - 1 && 
@@ -147,10 +145,6 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
             this->x = co_y; //почему-то указатели на координаты поменялись местами в шашке и теперь х - столбец, a y - строка :\/
             this->y = co_x;
             return true;
-            /*else if (!board.IsEmpty(x, y) && symb != board.GetBoardVector()[x - 1][y - 1]->GetSymb()) { //board
-                turnDistance = 2; ДОБАВИТЬ ЭТО В МЭЙН В ПРИДАЧУ К ПРОВЕРКЕ, ДОБАВИТЬ ПОЛЕ ИЗМЕНЕНИЯ РАССТОЯНИЯ (а надо ли?)
-                Hit(x, y, board);
-            }*/
     }
     else return false;
 }

@@ -4,7 +4,6 @@ class Board;
 class Figure
 {
 protected:
-	bool inGame; //?
 	char symb = ' ';
 	bool isQueen = false;
 	int x;
@@ -12,8 +11,6 @@ protected:
 public:
 	Figure(int x, int y, char symb);
 	Figure();
-	//void setCoords(int x, int y);
-	void setInGame(bool state); //?
 	char GetSymb() {
 		return symb;
 	}
