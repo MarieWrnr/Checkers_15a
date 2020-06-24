@@ -62,11 +62,10 @@ int main()
                 goto coords;
             }
             
-            int x1, y1; //убрать проверки на пустоту из CanBeat и добавить одну сюда
+            int x1, y1; 
             if(!game.GetGameBoard().GetBoardVector()[x - 1][y - 1]->CanBeat(game.GetGameBoard(), x, y)) { 
                //может ли бить текущая шашка 
                bool curr = false; //определяет в цикле, может ли бить хотя бы какая-то шашка
-               //game.GetGameBoard().GetBoardVector()[6][2]->CanBeat(game.GetGameBoard(), c1, c2); //не работает только в конкретном случае
                for (int i = 1; i < 9; i++) {//могут ли бить остальные шашки
                    for (int j = 1; j < 9; j++) {
                        if (!game.GetGameBoard().IsEmpty(i, j)) { 

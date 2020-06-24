@@ -5,8 +5,6 @@
 #include "Board.h"
 
 class Game {
-private:
-	bool move = true;
 public:
 	void Display();
 	std::string CheckPlayer(); //вывод действующего игрока
@@ -21,5 +19,6 @@ public:
 	}
 private:
 	Board board;
+	bool move = true;
 	std::string player;
 };

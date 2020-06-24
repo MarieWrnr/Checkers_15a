@@ -25,10 +25,10 @@ public:
 		return board;
 	}
 
-	int GetBlacks() {
+	int GetBlacks() const {
 		return blacks;
 	}
-	int GetWhites() {
+	int GetWhites() const {
 		return whites;
 	}
 

@@ -13,7 +13,6 @@ Checker::Checker(int x, int y, char symb) {
 	this->x = x;
 	this->y = y;
 	this->symb = symb;
-	setInGame(true);
 
 }
 
