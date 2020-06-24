@@ -19,7 +19,7 @@ public:
 
 protected:
 	char symb = ' ';
-	bool isQueen = false;
+	//bool isQueen = false;
 	int x;
 	int y;
 };

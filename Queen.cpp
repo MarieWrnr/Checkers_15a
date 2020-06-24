@@ -6,7 +6,7 @@
 
 Queen::Queen() {}
 Queen::Queen(int x, int y) {
-	isQueen = true;
+	//isQueen = true;
 	this->x = x;
 	this->y = y;
 }

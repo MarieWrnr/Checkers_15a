@@ -94,7 +94,7 @@ bool Checker::CanBeat(const Board& board, int& co_x, int& co_y)const
 bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
     bool black = board.HasCheckerB(co_x, co_y);
     if (!black) {
-        if (co_y != board.GetSize() && co_y != 1) {
+        if (co_y != board.GetSize() && co_y != 1) {//fix
             if (!board.IsEmpty(co_x + 1, co_y + 1) && !board.IsEmpty(co_x + 1, co_y - 1) &&
                 !board.IsEmpty(co_x + 2, co_y + 2) && !board.IsEmpty(co_x + 1, co_y - 2)) return false;
             else return true;
@@ -125,7 +125,7 @@ bool Checker::CanMove(const Board& board, int& co_x, int& co_y)const {
     }
 }
 
-bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить назад!!!! и надо добавить достижение до королевы
+bool Checker::Move(int co_x, int co_y, Board& board) { 
     char checker = board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb();
     if ((checker == 'w' && co_x - this->y == 1  && abs(co_y - this->x) == 1) ||
         (checker == 'b' && this->y - co_x == 1 && abs(co_y - this->x) == 1)) {
@@ -141,7 +141,7 @@ bool Checker::Move(int co_x, int co_y, Board& board) { //она не должна ходить на
             }
 
             board.GetBoardVector()[this->y - 1][this->x - 1] = nullptr;
-            this->x = co_y; //почему-то указатели на координаты поменялись местами в шашке и теперь х - столбец, a y - строка :\/
+            this->x = co_y; 
             this->y = co_x;
             return true;
     }
@@ -153,7 +153,6 @@ bool Checker::Hit(int co_x1, int co_y1, Board& board) {
         (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'b' && this->y - co_x1 == 2 && abs(co_y1 - this->x) == 2)) {
 
             board.GetBoardVector()[co_x1 - 1][co_y1 - 1] = board.GetBoardVector()[this->y - 1][this->x - 1];
-            //почему-то указатели на координаты поменялись местами в шашке и теперь х - столбец, a y - строка :\/
 
             if (board.GetBoardVector()[this->y - 1][this->x - 1]->GetSymb() == 'w') {
                 if (co_y1 - this->x == 2) board.GetBoardVector()[this->y][this->x] = nullptr;

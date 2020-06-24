@@ -1,11 +1,6 @@
-﻿  Board.cpp
-  Checker.cpp
-  Figure.cpp
-  Game.cpp
-  Queen.cpp
+﻿  Queen.cpp
   Курсач.cpp
   Создание кода...
 C:\Users\User\Desktop\Checkers_15a\Курсач.cpp(24): warning C4715: CheckCoord: значение возвращается не при всех путях выполнения
 C:\Users\User\Desktop\Checkers_15a\Queen.cpp(225): warning C4715: Queen::Diagonale: значение возвращается не при всех путях выполнения
-C:\Users\User\Desktop\Checkers_15a\Checker.cpp(126): warning C4715: Checker::CanMove: значение возвращается не при всех путях выполнения
   Курсач.vcxproj -> C:\Users\User\Desktop\Checkers_15a\x64\Debug\Курсач.exe
